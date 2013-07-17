@@ -22,4 +22,6 @@ executable onTap
                      , mtl == 2.1.2
                      , network == 2.4.1.2
                      , transformers
+                     , MaybeT
+                     , hxt == 9.3.1.1
 
