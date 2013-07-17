@@ -1,3 +1,4 @@
+import System.IO (withFile, hPutStrLn, IOMode(WriteMode))
 import Control.Monad.Trans
 import Control.Monad.Maybe
 import Data.Maybe
@@ -10,11 +11,13 @@ import Data.Tree.NTree.TypeDefs (NTree)
 
 -- main :: IO ()
 main = do
-  putStrLn "Hello"
-  -- str <- either show rspBody getBody
-  page <- get craftHeads_url
-  contents <- runX $ page >>> craftHeads_filter
-  putStrLn $ show contents
+  withFile "craftheads.txt" WriteMode (\handle -> do
+    hPutStrLn handle "Hello"
+    -- str <- either show rspBody getBody
+    page <- get craftHeads_url
+    contents <- runX $ page >>> craftHeads_filter
+    mapM_ (hPutStrLn handle) contents
+    )
 
 getBody :: String -> IO String
 getBody url = case parseURI url of
@@ -25,7 +28,7 @@ craftHeads_url :: String
 craftHeads_url = "http://craftheads.blog88.fc2.com/blog-entry-197.html"
 -- craftHeads_url = "http://craftheads.jp/craftheads/Beers.html"
 
--- craftHeads_filter :: ArrowXml a => a XmlTree String
+craftHeads_filter :: ArrowXml a => a XmlTree String
 craftHeads_filter = css "div" >>> hasAttrValue "class" (== "entry-body-container") //> getText
 openUrl :: String -> MaybeT IO String
 openUrl url = case parseURI url of

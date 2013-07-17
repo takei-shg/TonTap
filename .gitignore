@@ -2,3 +2,4 @@
 VagrantFile
 cabal-dev/
 dist
+*.txt
