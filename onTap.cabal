@@ -19,11 +19,12 @@ executable onTap
   -- other-modules:       
   build-depends:       base ==4.6.*
                      , HTTP
-                     , mtl == 2.1.2
-                     , network == 2.4.1.2
+                     , mtl
+                     , network
                      , transformers
                      , MaybeT
-                     , hxt == 9.3.1.1
+                     , hxt
                      , utf8-string
-                     , bytestring == 0.10.0.2
+                     , bytestring
+                     , riak
 

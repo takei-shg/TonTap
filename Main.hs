@@ -15,18 +15,25 @@ import Data.ByteString.UTF8 (toString)
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy as LBS
 
+-- import qualified Network.Riak.JSON.Resolvable (get, put)
+import qualified Network.Riak as Riak
+
 
 -- main :: IO ()
 main = do
-  withFile "craftheads.txt" WriteMode (\handle -> do
-    hPutStrLn handle "Hello"
-    -- str <- either show rspBody getBody
-    -- str <- getBody craftHeads_url
-    page <- get craftHeads_url
-    -- hPutStrLn handle $ toString $ str
-    contents <- runX $ page >>> craftHeads_filter
-    mapM_ (hPutStrLn handle) contents
-    )
+  -- let client = Riak.defaultClient { Riak.host = "127.0.0.1", Riak.port = "8087" }
+  conn <- Riak.connect Riak.defaultClient
+  Riak.disconnect conn
+--   withFile "craftheads.txt" WriteMode (\handle -> do
+--     hPutStrLn handle "Hello"
+--     -- str <- either show rspBody getBody
+--     -- str <- getBody craftHeads_url
+--     page <- get craftHeads_url
+--     -- hPutStrLn handle $ toString $ str
+--     contents <- runX $ page >>> craftHeads_filter
+--     mapM_ putStrLn contents
+--     mapM_ (hPutStrLn handle) contents
+--     )
 
 getBody :: String -> IO BS.ByteString
 getBody url = case parseURI url of
