@@ -3,3 +3,4 @@ VagrantFile
 cabal-dev/
 dist
 *.txt
+tags

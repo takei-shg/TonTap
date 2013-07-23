@@ -26,5 +26,8 @@ executable onTap
                      , hxt
                      , utf8-string
                      , bytestring
+                     , datetime
                      , riak
+                     , text
+                     , aeson
 
